@@ -1,0 +1,91 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.tree-box {
+  font-size: 60px;
+  margin: 10px 0;
+}
+
+.timer-display {
+  font-size: 42px;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #4ade80;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 60px;
+  padding: 6px;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.input-group button, .preset-btn, .controls button {
+  padding: 8px 14px;
+  margin: 3px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#setCustomBtn {
+  background: #3b82f6;
+  color: white;
+}
+
+.preset-btn {
+  background: #333;
+  color: #ccc;
+}
+
+.preset-btn.active {
+  background: #22c55e;
+  color: #fff;
+}
+
+#startBtn {
+  background: #22c55e;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+#resetBtn {
+  background: #ef4444;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+.stats {
+  margin-top: 20px;
+  color: #9ca3af;
+}
+
