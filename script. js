@@ -1,0 +1,102 @@
+let totalSeconds = 25 * 60;
+let secondsLeft = totalSeconds;
+let timerInterval = null;
+let isRunning = false;
+let treeCount = 0;
+
+const timerDisplay = document.getElementById('timerDisplay');
+const startBtn = document.getElementById('startBtn');
+const resetBtn = document.getElementById('resetBtn');
+const customMinutesInput = document.getElementById('customMinutes');
+const setCustomBtn = document.getElementById('setCustomBtn');
+const presetBtns = document.querySelectorAll('.preset-btn');
+const treeCountDisplay = document.getElementById('treeCount');
+const treeIcon = document.getElementById('tree');
+
+function updateDisplay() {
+  const mins = Math.floor(secondsLeft / 60);
+  const secs = secondsLeft % 60;
+  timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  
+  const progress = (totalSeconds - secondsLeft) / totalSeconds;
+  if (progress === 0) treeIcon.textContent = '🌱';
+  else if (progress < 0.33) treeIcon.textContent = '🌿';
+  else if (progress < 0.66) treeIcon.textContent = '🪴';
+  else treeIcon.textContent = '🌲';
+}
+
+function startTimer() {
+  if (secondsLeft <= 0) return;
+  isRunning = true;
+  startBtn.textContent = 'Pause';
+  startBtn.style.background = '#eab308';
+
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    updateDisplay();
+
+    if (secondsLeft <= 0) {
+      clearInterval(timerInterval);
+      isRunning = false;
+      startBtn.textContent = 'Start';
+      startBtn.style.background = '#22c55e';
+      treeCount++;
+      treeCountDisplay.textContent = treeCount;
+      alert('කාලය අවසන්! ගස සාර්ථකව වැවුණා 🌲');
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+  startBtn.textContent = 'Start';
+  startBtn.style.background = '#22c55e';
+}
+
+function toggleTimer() {
+  if (isRunning) {
+    pauseTimer();
+  } else {
+    startTimer();
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+  secondsLeft = totalSeconds;
+  startBtn.textContent = 'Start';
+  startBtn.style.background = '#22c55e';
+  updateDisplay();
+}
+
+function setTime(minutes) {
+  pauseTimer();
+  totalSeconds = minutes * 60;
+  secondsLeft = totalSeconds;
+  customMinutesInput.value = minutes;
+  updateDisplay();
+}
+
+startBtn.addEventListener('click', toggleTimer);
+resetBtn.addEventListener('click', resetTimer);
+
+setCustomBtn.addEventListener('click', () => {
+  const val = parseInt(customMinutesInput.value);
+  if (val > 0) {
+    presetBtns.forEach(b => b.classList.remove('active'));
+    setTime(val);
+  }
+});
+
+presetBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    presetBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    setTime(parseInt(btn.dataset.time));
+  });
+});
+
+updateDisplay();
+
